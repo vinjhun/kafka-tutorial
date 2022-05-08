@@ -10,7 +10,7 @@ import java.util.Properties;
 public class ProducerDemo {
 
     //kafka-topics --bootstrap-server localhost:9092 --create --topic demo_java --partitions 3 --replication-factor 1
-
+    //
     private static final Logger log = LoggerFactory.getLogger(ProducerDemo.class.getSimpleName());
 
     public static void main(String[] args) {
