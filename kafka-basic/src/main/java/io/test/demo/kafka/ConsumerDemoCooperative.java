@@ -1,9 +1,6 @@
 package io.test.demo.kafka;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
@@ -13,7 +10,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-public class ConsumerDemo {
+public class ConsumerDemoCooperative {
 
     private static final Logger log = LoggerFactory.getLogger(ProducerDemo.class.getSimpleName());
 
@@ -30,6 +27,11 @@ public class ConsumerDemo {
 
         prop.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "my-third-application");
         prop.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");  // none/earliest/latest
+
+        //
+        prop.setProperty(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, CooperativeStickyAssignor.class.getName());
+
+        //prop.setProperty(ConsumerConfig.GROUP_INSTANCE_ID_CONFIG,"");
 
         return prop;
     }
@@ -64,7 +66,6 @@ public class ConsumerDemo {
             while(true) {
                 //log.info("Polling");
 
-                //where offset is comitted ( auto.commit.interval.ms )
                 ConsumerRecords<String,String> records = consumer.poll(Duration.ofMillis(1000));
 
                 for (ConsumerRecord<String, String> record : records) {
