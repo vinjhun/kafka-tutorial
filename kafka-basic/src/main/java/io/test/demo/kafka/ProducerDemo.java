@@ -27,6 +27,13 @@ public class ProducerDemo {
         prop.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         prop.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
+        //kafka > 3.0
+        //prop.setProperty(ProducerConfig.ACKS_CONFIG, "-1");
+        //prop.setProperty("enable.idempotent", "true");
+
+        //kafka 2.8 =<
+        //prop.setProperty(ProducerConfig.ACKS_CONFIG, "1");
+        //prop.setProperty("enable.idempotent", "false");
         return prop;
     }
 
