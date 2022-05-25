@@ -1,6 +1,8 @@
 /**
  * consumer offset logic
  *
+ * * do async, recommend manual commit offset
+ *
  * -if auto commit is enabled, for every 5 second the auto commit offset method will trigger behind
  * -but if in between the service is broke, then the offset will not be re-read again
  *
